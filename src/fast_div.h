@@ -38,3 +38,37 @@
 * E.g. FAST_MOD16U(value, 6)
 */
 #define FAST_MOD16U(a, d) (a - (FAST_DIV16U(a, d) * d))
+
+// GCC produces quick code for powers of 2
+#undef U16DIVBY1
+#define U16DIVBY1(A)    (A)
+#undef U16DIVBY2
+#define U16DIVBY2(A)    (A / 2U)
+#undef U16DIVBY4
+#define U16DIVBY4(A)    (A / 4U)
+#undef U16DIVBY8
+#define U16DIVBY8(A)    (A / 8U)
+#undef U16DIVBY16
+#define U16DIVBY16(A)    (A / 16U)
+#undef U16DIVBY32
+#define U16DIVBY32(A)    (A / 32U)
+#undef U16DIVBY64
+#define U16DIVBY64(A)    (A / 64U)
+#undef U16DIVBY128
+#define U16DIVBY128(A)    (A / 128U)
+#undef U16DIVBY256
+#define U16DIVBY256(A)    (A / 256U)
+#undef U16DIVBY512
+#define U16DIVBY512(A)    (A / 512U)
+#undef U16DIVBY1024
+#define U16DIVBY1024(A)    (A / 1024U)
+#undef U16DIVBY2048
+#define U16DIVBY2048(A)    (A / 2048U)
+#undef U16DIVBY4096
+#define U16DIVBY4096(A)    (A / 4096U)
+#undef U16DIVBY8192
+#define U16DIVBY8192(A)    (A / 8192U)
+#undef U16DIVBY16384
+#define U16DIVBY16384(A)    (A / 16384U)
+#undef U16DIVBY32768
+#define U16DIVBY32768(A)    (A / 32768U)

@@ -21,12 +21,6 @@
 * fit, provided that this notice is included in its entirety.
 ============================================================================*/
 
-/*============================================================================
-* Testing on an AtMega2560 shows between 13% & 80%+ speed up for division by
-* non-powers of 2. Accuracy confirmed with numerator [-8192, 8192] and
-* denominator [0, 1024] (no time to go further, but I'm confident it will work)
-============================================================================*/
-
 #ifndef INTEGER_DIVISION_UINT16
 #define INTEGER_DIVISION_UINT16
 
@@ -34,23 +28,13 @@
 #define U16REC1(A, M, S) (uint16_t)((((uint32_t)(A) * (uint32_t)(M)) >> 16u) >> (S))
 #define U16REC2(A, M, S) (uint16_t)((((((uint32_t)(A) * (uint32_t)(M)) >> 16u) + (A)) >> 1u) >> (S))
 
-/* macros to perform 16-bit integer division by 1..32768 */
-#define U16DIVBY1(A)    (A)
-#define U16DIVBY2(A)    (A / 2U)
+/* macros to perform 16-bit integer division by 3..32768 */
 #define U16DIVBY3(A)    U16REC1(A, 0xAAABu, 1u)
-#ifdef __AVR__
-#define U16DIVBY4(A)    (A/4U)
-#else
 #define U16DIVBY4(A)    U16REC1(A, 0x8000u, 1u)
-#endif
 #define U16DIVBY5(A)    U16REC1(A, 0xCCCDu, 2u)
 #define U16DIVBY6(A)    U16REC1(A, 0xAAABu, 2u)
 #define U16DIVBY7(A)    U16REC2(A, 0x2493u, 2u)
-#ifdef __AVR__
-#define U16DIVBY8(A)    (A/8U)
-#else
 #define U16DIVBY8(A)    U16REC1(A, 0x8000u, 2u)
-#endif
 #define U16DIVBY9(A)    U16REC1(A, 0xE38Fu, 3u)
 #define U16DIVBY10(A)    U16REC1(A, 0xCCCDu, 3u)
 #define U16DIVBY11(A)    U16REC1(A, 0xBA2Fu, 3u)
@@ -58,11 +42,7 @@
 #define U16DIVBY13(A)    U16REC1(A, 0x9D8Au, 3u)
 #define U16DIVBY14(A)    U16REC2(A, 0x2493u, 3u)
 #define U16DIVBY15(A)    U16REC1(A, 0x8889u, 3u)
-#ifdef __AVR__
-#define U16DIVBY16(A)    (A/16U)
-#else
 #define U16DIVBY16(A)    U16REC1(A, 0x8000u, 3u)
-#endif
 #define U16DIVBY17(A)    U16REC1(A, 0xF0F1u, 4u)
 #define U16DIVBY18(A)    U16REC1(A, 0xE38Fu, 4u)
 #define U16DIVBY19(A)    U16REC1(A, 0xD795u, 4u)
@@ -78,11 +58,7 @@
 #define U16DIVBY29(A)    U16REC1(A, 0x8D3Eu, 4u)
 #define U16DIVBY30(A)    U16REC1(A, 0x8889u, 4u)
 #define U16DIVBY31(A)    U16REC2(A, 0x0843u, 4u)
-#ifdef __AVR__
-#define U16DIVBY32(A)    (A/32U)
-#else
 #define U16DIVBY32(A)    U16REC1(A, 0x8000u, 4u)
-#endif
 #define U16DIVBY33(A)    U16REC1(A, 0xF83Fu, 5u)
 #define U16DIVBY34(A)    U16REC1(A, 0xF0F1u, 5u)
 #define U16DIVBY35(A)    U16REC1(A, 0xEA0Fu, 5u)
@@ -114,11 +90,7 @@
 #define U16DIVBY61(A)    U16REC1(A, 0x864Cu, 5u)
 #define U16DIVBY62(A)    U16REC2(A, 0x0843u, 5u)
 #define U16DIVBY63(A)    U16REC2(A, 0x0411u, 5u)
-#ifdef __AVR__
-#define U16DIVBY64(A)    (A/64U)
-#else
 #define U16DIVBY64(A)    U16REC1(A, 0x8000u, 5u)
-#endif
 #define U16DIVBY65(A)    U16REC1(A, 0xFC10u, 6u)
 #define U16DIVBY66(A)    U16REC1(A, 0xF83Fu, 6u)
 #define U16DIVBY67(A)    U16REC1(A, 0xF48Au, 6u)
@@ -182,11 +154,7 @@
 #define U16DIVBY125(A)    U16REC2(A, 0x0625u, 6u)
 #define U16DIVBY126(A)    U16REC2(A, 0x0411u, 6u)
 #define U16DIVBY127(A)    U16REC2(A, 0x0205u, 6u)
-#ifdef __AVR__
-#define U16DIVBY128(A)    (A/128)
-#else
 #define U16DIVBY128(A)    U16REC1(A, 0x8000u, 6u)
-#endif
 #define U16DIVBY129(A)    U16REC1(A, 0xFE04u, 7u)
 #define U16DIVBY130(A)    U16REC1(A, 0xFC10u, 7u)
 #define U16DIVBY131(A)    U16REC1(A, 0xFA24u, 7u)
@@ -314,11 +282,7 @@
 #define U16DIVBY253(A)    U16REC1(A, 0x8185u, 7u)
 #define U16DIVBY254(A)    U16REC2(A, 0x0205u, 7u)
 #define U16DIVBY255(A)    U16REC1(A, 0x8081u, 7u)
-#ifdef __AVR__
-#define U16DIVBY256(A)    (A/256U)
-#else
 #define U16DIVBY256(A)    U16REC1(A, 0x8000u, 7u)
-#endif
 #define U16DIVBY257(A)    U16REC1(A, 0xFF01u, 8u)
 #define U16DIVBY258(A)    U16REC1(A, 0xFE04u, 8u)
 #define U16DIVBY259(A)    U16REC1(A, 0xFD09u, 8u)
@@ -574,11 +538,7 @@
 #define U16DIVBY509(A)    U16REC2(A, 0x0183u, 8u)
 #define U16DIVBY510(A)    U16REC1(A, 0x8081u, 8u)
 #define U16DIVBY511(A)    U16REC2(A, 0x0081u, 8u)
-#ifdef __AVR__
-#define U16DIVBY512(A)    (A/512)
-#else
 #define U16DIVBY512(A)    U16REC1(A, 0x8000u, 8u)
-#endif
 #define U16DIVBY513(A)    U16REC1(A, 0xFF81u, 9u)
 #define U16DIVBY514(A)    U16REC1(A, 0xFF01u, 9u)
 #define U16DIVBY515(A)    U16REC1(A, 0xFE83u, 9u)
@@ -1090,11 +1050,7 @@
 #define U16DIVBY1021(A)    U16REC2(A, 0x00C1u, 9u)
 #define U16DIVBY1022(A)    U16REC2(A, 0x0081u, 9u)
 #define U16DIVBY1023(A)    U16REC2(A, 0x0041u, 9u)
-#ifdef __AVR__
-#define U16DIVBY1024(A)    (A/1024U)
-#else
 #define U16DIVBY1024(A)    U16REC1(A, 0x8000u, 9u)
-#endif
 #define U16DIVBY1025(A)    U16REC1(A, 0xFFC1u, 10u)
 #define U16DIVBY1026(A)    U16REC1(A, 0xFF81u, 10u)
 #define U16DIVBY1027(A)    U16REC1(A, 0xFF41u, 10u)
@@ -2118,11 +2074,7 @@
 #define U16DIVBY2045(A)    U16REC2(A, 0x0061u, 10u)
 #define U16DIVBY2046(A)    U16REC2(A, 0x0041u, 10u)
 #define U16DIVBY2047(A)    U16REC2(A, 0x0021u, 10u)
-#ifdef __AVR__
-#define U16DIVBY2048(A)    (A/2048U)
-#else
 #define U16DIVBY2048(A)    U16REC1(A, 0x8000u, 10u)
-#endif
 #define U16DIVBY2049(A)    U16REC1(A, 0xFFE1u, 11u)
 #define U16DIVBY2050(A)    U16REC1(A, 0xFFC1u, 11u)
 #define U16DIVBY2051(A)    U16REC1(A, 0xFFA1u, 11u)
@@ -4170,11 +4122,7 @@
 #define U16DIVBY4093(A)    U16REC2(A, 0x0031u, 11u)
 #define U16DIVBY4094(A)    U16REC2(A, 0x0021u, 11u)
 #define U16DIVBY4095(A)    U16REC2(A, 0x0011u, 11u)
-#ifdef __AVR__
-#define U16DIVBY4096(A)    (A/4096u)
-#else
 #define U16DIVBY4096(A)    U16REC1(A, 0x8000u, 11u)
-#endif
 #define U16DIVBY4097(A)    U16REC1(A, 0xFFF1u, 12u)
 #define U16DIVBY4098(A)    U16REC1(A, 0xFFE1u, 12u)
 #define U16DIVBY4099(A)    U16REC1(A, 0xFFD1u, 12u)
@@ -8270,11 +8218,7 @@
 #define U16DIVBY8189(A)    U16REC2(A, 0x0019u, 12u)
 #define U16DIVBY8190(A)    U16REC2(A, 0x0011u, 12u)
 #define U16DIVBY8191(A)    U16REC2(A, 0x0009u, 12u)
-#ifdef __AVR__
-#define U16DIVBY8192(A)    (A/8192u)
-#else
 #define U16DIVBY8192(A)    U16REC1(A, 0x8000u, 12u)
-#endif
 #define U16DIVBY8193(A)    U16REC1(A, 0xFFF9u, 13u)
 #define U16DIVBY8194(A)    U16REC1(A, 0xFFF1u, 13u)
 #define U16DIVBY8195(A)    U16REC1(A, 0xFFE9u, 13u)
@@ -16466,11 +16410,7 @@
 #define U16DIVBY16381(A)    U16REC2(A, 0x000Du, 13u)
 #define U16DIVBY16382(A)    U16REC2(A, 0x0009u, 13u)
 #define U16DIVBY16383(A)    U16REC2(A, 0x0005u, 13u)
-#ifdef __AVR__
-#define U16DIVBY16384(A)    (A/16384U)
-#else
 #define U16DIVBY16384(A)    U16REC1(A, 0x8000u, 13u)
-#endif
 #define U16DIVBY16385(A)    U16REC1(A, 0xFFFDu, 14u)
 #define U16DIVBY16386(A)    U16REC1(A, 0xFFF9u, 14u)
 #define U16DIVBY16387(A)    U16REC1(A, 0xFFF5u, 14u)
@@ -32854,10 +32794,6 @@
 #define U16DIVBY32765(A)    U16REC2(A, 0x0007u, 14u)
 #define U16DIVBY32766(A)    U16REC2(A, 0x0005u, 14u)
 #define U16DIVBY32767(A)    U16REC2(A, 0x0003u, 14u)
-#ifdef __AVR__
-#define U16DIVBY32768(A)    (A/32768u)
-#else
 #define U16DIVBY32768(A)    U16REC1(A, 0x8000u, 14u)
-#endif
 
 #endif /* INTEGER_DIVISION_UINT16 */
